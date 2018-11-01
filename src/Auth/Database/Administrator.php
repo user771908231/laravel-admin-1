@@ -81,4 +81,57 @@ class Administrator extends Model implements AuthenticatableContract
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'permission_id');
     }
+
+    /**
+     * 下级节点
+     * @Title : subset
+     * @User  : company_windows_locahost_wm
+     * @Date  : 2018/10/25
+     * @Time  : 16:30
+     * @return mixed
+     */
+    public function subset()
+    {
+        return $this->hasMany(Administrator::class,'pid','id');
+    }
+
+    /**
+     * 下级节点所有
+     * @Title : subsetAll
+     * @User  : company_windows_locahost_wm
+     * @Date  : 2018/10/25
+     * @Time  : 16:30
+     * @return mixed
+     */
+    public function subsetAll()
+    {
+        return $this->hasMany(Administrator::class,'pid','id')->with('subsetAll');
+    }
+
+    /**
+     * 上级节点
+     * @Title : ancestors
+     * @User  : company_windows_locahost_wm
+     * @Date  : 2018/10/25
+     * @Time  : 16:32
+     * @return mixed
+     */
+    public function ancestors()
+    {
+        return $this->hasMany(Administrator::class,'pid','id');
+    }
+
+    /***
+     * 上级节点所有
+     * @Title : ancestorsAll
+     * @User  : company_windows_locahost_wm
+     * @Date  : 2018/10/25
+     * @Time  : 16:32
+     * @return mixed
+     */
+    public function ancestorsAll()
+    {
+        return $this->hasMany(Administrator::class,'pid','id')->with('ancestorsAll');
+    }
+    
 }
